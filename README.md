@@ -1,5 +1,7 @@
  <img src="https://storage.googleapis.com/ultralytics/logo/logoname1000.png" width="160">
 
+ python bing_scraper.py --url https://www.bing.com/images/search?q=conjuntivitis --limit 10 --download --chromedriver D:/SERVER/google_image/google-images-download-master/chromedriver.exe
+
 # Introduction
 
 This directory contains Bing image-scraping software forked from https://github.com/hardikvasa/google-images-download, and updated by Ultralytics LLC, and **is freely available for redistribution under the MIT license**. For more information please visit https://www.ultralytics.com.
