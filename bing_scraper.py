@@ -186,16 +186,21 @@ class googleimagesdownload:
     # Download Page for more than 100 images
     def download_extended_page(self, url, chromedriver):
         from selenium import webdriver
+        from selenium.webdriver.common.by import By
         from selenium.webdriver.common.keys import Keys
+        from selenium.webdriver.chrome.service import Service
+
+        service = Service(executable_path=chromedriver)
+
         options = webdriver.ChromeOptions()
         options.add_argument('--no-sandbox')
         options.add_argument("--headless")
 
         try:
-            browser = webdriver.Chrome(chromedriver, options=options)
+            browser = webdriver.Chrome(service=service, options=options)
         except Exception as e:
-            print("chromedriver not found (use the '--chromedriver' argument to specify the path to the executable)"
-                  "or google chrome browser is not installed on your machine (exception: %s)" % e)
+            print("chromedriver not found (use the '--chromedriver' %s argument to specify the path to the executable)"
+                  "or google chrome browser is not installed on your machine (exception: %s)" % (chromedriver,e))
             sys.exit()
         browser.set_window_size(1920, 3840)  # 4k
 
@@ -203,7 +208,7 @@ class googleimagesdownload:
         browser.get(url)
         time.sleep(0.5)
 
-        element = browser.find_element_by_tag_name("body")
+        element = browser.find_element(By.XPATH, "/html/body")
         pbar = tqdm(enumerate(range(30)), desc='Downloading HTML...', total=30)  # progress bar
         for _ in pbar:
             try:  # click 'see more' button if found
